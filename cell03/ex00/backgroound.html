@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+ <title>Random Background Color</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <button onclick="changeBgColor()"> กดฉันสิ </button>
+  <script>
+    function changeBgColor() {
+      const randomColor = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+      document.body.style.background = randomColor;
+    }
+  </script>
+</body>
+</html>
