@@ -1,0 +1,56 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  scroll-behavior: smooth;
+}
+.parallax-section {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  position: relative;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: center;
+}
+.parallax-section.bg1 {
+  background-image: url('https://s.isanook.com/mv/0/ud/10/51309/ra.jpg');
+}
+.parallax-section.bg2 {
+  background-image: url('https://storage.googleapis.com/atime-media-prod/content/54f4d38d-a34f-40a5-9317-2c158a9541a0.jpeg');
+}
+.center-message {
+  background: rgba(0,0,0,0.45);
+  padding: 32px 48px;
+  border-radius: 18px;
+  font-size: 2em;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+  max-width: 80vw;
+  margin: 0 auto;
+}
+.black-block {
+  min-height: 60vh;
+  background: #111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  text-align: center;
+  font-size: 1.7em;
+  letter-spacing: 1px;
+}
+@media (max-width: 700px) {
+  .center-message {
+    font-size: 1.1em;
+    padding: 18px 10px;
+  }
+  .black-block {
+    font-size: 1.1em;
+    padding: 0 8px;
+  }
+}
