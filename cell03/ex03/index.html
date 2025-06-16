@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mini Task Manager</title>
+  <style>
+    body {
+      background: #f6f6f6;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    #container {
+      margin-top: 40px;
+      background: #fff;
+      padding: 24px 32px 32px 32px;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      min-width: 320px;
+    }
+    #new-btn {
+      padding: 8px 22px;
+      font-size: 1em;
+      border-radius: 6px;
+      border: none;
+      background: #4f8cff;
+      color: #fff;
+      cursor: pointer;
+      margin-bottom: 18px;
+      transition: background 0.2s;
+    }
+    #new-btn:hover {
+      background: #2563eb;
+    }
+    #ft_list {
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 10px;
+      min-height: 40px;
+    }
+    .todo {
+      background: #ffe082;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-size: 1.05em;
+      cursor: pointer;
+      transition: background 0.2s;
+      word-break: break-word;
+    }
+    .todo:hover {
+      background: #ffd54f;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <button id="new-btn">New</button>
+    <div id="ft_list"></div>
+  </div>
+  <script>
+    // Cookie helpers
+    function setCookie(name, value, days) {
+      const d = new Date();
+      d.setTime(d.getTime() + (days*24*60*60*1000));
+      document.cookie = name + "=" + encodeURIComponent(value) + ";expires=" + d.toUTCString() + ";path=/";
+    }
+    function getCookie(name) {
+      const cname = name + "=";
+      const decodedCookie = decodeURIComponent(document.cookie);
+      const ca = decodedCookie.split(';');
+      for(let i = 0; i < ca.length; i++) {
+        let c = ca[i].trim();
+        if (c.indexOf(cname) === 0) return c.substring(cname.length, c.length);
+      }
+      return "";
+    }
+
+    // Load todos from cookie
+    function loadTodos() {
+      const data = getCookie('todo_list');
+      if (!data) return [];
+      try {
+        return JSON.parse(data);
+      } catch {
+        return [];
+      }
+    }
+
+    // Save todos to cookie
+    function saveTodos(todos) {
+      setCookie('todo_list', JSON.stringify(todos), 365);
+    }
+
+    // Render todos
+    function renderTodos(todos) {
+      const ftList = document.getElementById('ft_list');
+      ftList.innerHTML = '';
+      todos.forEach((todo, idx) => {
+        const div = document.createElement('div');
+        div.className = 'todo';
+        div.textContent = todo;
+        div.onclick = function() {
+          if (confirm('Do you want to remove this TO DO?')) {
+            todos.splice(idx, 1);
+            saveTodos(todos);
+            renderTodos(todos);
+          }
+        };
+        ftList.appendChild(div);
+      });
+    }
+
+    // Main
+    let todos = loadTodos();
+    renderTodos(todos);
+
+    document.getElementById('new-btn').onclick = function() {
+      const text = prompt('Enter a new TO DO:');
+      if (text && text.trim() !== '') {
+        todos.push(text.trim());
+        saveTodos(todos);
+        renderTodos(todos);
+      }
+    };
+  </script>
+</body>
+</html>
